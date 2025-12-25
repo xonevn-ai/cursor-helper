@@ -112,13 +112,13 @@ remove_cursor_trial_folders() {
     done
 
     # 🔧 Important: Execute permission fix immediately after deleting folders
-    log_info "� [权限修复] 删除文件夹后立即执行权限修复..."
+    log_info "🔧 [Permission Fix] Executing permission fix immediately after deleting folders..."
     echo
 
-    # 调用统一的权限修复函数
+    # Call unified permission fix function
     ensure_cursor_directory_permissions
 
-    # 显示操作统计
+    # Display operation statistics
     log_info "📊 [Statistics] Operation completion statistics:"
     echo "   ✅ Successfully deleted: $deleted_count folder(s)"
     echo "   ⏭️  Skipped: $skipped_count folder(s)"
@@ -142,6 +142,7 @@ restart_cursor_and_wait() {
         log_error "❌ [Error] Cursor process information not found, cannot restart"
         return 1
     fi
+    
 
     log_info "📍 [Path] Using path: $CURSOR_PROCESS_PATH"
 
@@ -388,10 +389,10 @@ modify_machine_code_config() {
         log_error "❌ [Error] Configuration file does not exist: $config_path"
         echo
         log_info "💡 [Solution] Please try the following steps:"
-        echo -e "${BLUE}  1️⃣  Manually start Cursor application${NC}"
-        echo -e "${BLUE}  2️⃣  Wait for Cursor to fully load (approximately 30 seconds)${NC}"
-        echo -e "${BLUE}  3️⃣  Close Cursor application${NC}"
-        echo -e "${BLUE}  4️⃣  Re-run this script${NC}"
+        echo -e "${BLUE}  1  Manually start Cursor application${NC}"
+        echo -e "${BLUE}  2  Wait for Cursor to fully load (approximately 30 seconds)${NC}"
+        echo -e "${BLUE}  3  Close Cursor application${NC}"
+        echo -e "${BLUE}  4  Re-run this script${NC}"
         echo
         log_warn "⚠️  [Alternative] If the problem persists:"
         echo -e "${BLUE}  • Select the script's 'Reset Environment + Modify Machine Code' option${NC}"
@@ -1787,7 +1788,7 @@ Module.prototype.require=function(id){
     return hooked;
 };
 
-console.log("[Cursor ID Modifier] Enhanced Hook Activated - Official Account【煎饼果子卷AI】");
+console.log("[Cursor ID Modifier] Enhanced Hook Activated - Official Account [XoneVN AI]");
 })();
 // ========== Cursor Hook Injection End ==========
 
@@ -2096,7 +2097,7 @@ modify_cursor_app_files() {
         head -100 "$file" 2>/dev/null | grep -v "^$" | head -50 >> "$LOG_FILE"
         echo "[FILE_CONTENT] ..." >> "$LOG_FILE"
 
-        # 创建文件备份
+        # Create file backup
         cp "$file" "${file}.bak" || {
             log_error "Unable to create file backup: ${file/$temp_dir\//}"
             echo "[ERROR] Unable to create file backup: $file" >> "$LOG_FILE"
@@ -2373,10 +2374,10 @@ console.log('Cursor global device identifier interception activated - ES module 
         return 1
     fi
 
-    # 清理临时文件
+    # Clean up temporary files
     rm -rf "$temp_dir" "$backup_app"
 
-    # 设置权限
+    # Set permissions
     sudo chown -R "$CURRENT_USER:staff" "$CURSOR_APP_PATH"
     sudo chmod -R 755 "$CURSOR_APP_PATH"
 
@@ -2414,7 +2415,7 @@ show_file_tree() {
 show_follow_info() {
     echo
     echo -e "${GREEN}================================${NC}"
-    echo -e "${YELLOW}  关注公众号【煎饼果子卷AI】一起交流更多Cursor技巧和AI知识(脚本免费、关注公众号加群有更多技巧和大佬) ${NC}"
+    echo -e "${YELLOW}  Follow Official Account [XoneVN AI] to share more Cursor tips and AI knowledge (Script is free, follow the account to join group for more tips and experts) ${NC}"
     echo -e "${GREEN}================================${NC}"
     echo
 }
@@ -2568,11 +2569,11 @@ fix_damaged_app() {
 }
 
 # New: Universal menu selection function
-# 参数:
-# $1 - 提示信息
-# $2 - 选项数组，格式为 "选项1|选项2|选项3"
-# $3 - 默认选项索引 (从0开始)
-# 返回: 选中的选项索引 (从0开始)
+# Parameters:
+# $1 - Prompt message
+# $2 - Options array, format: "option1|option2|option3"
+# $3 - Default option index (starting from 0)
+# Returns: Selected option index (starting from 0)
 select_menu_option() {
     local prompt="$1"
     IFS='|' read -ra options <<< "$2"
@@ -2583,13 +2584,13 @@ select_menu_option() {
     local cursor_down='\033[B'
     local enter_key=$'\n'
 
-    # 保存光标位置
+    # Save cursor position
     tput sc
 
-    # 显示提示信息
+    # Display prompt message
     echo -e "$prompt"
 
-    # 第一次显示菜单
+    # First display menu
     for i in "${!options[@]}"; do
         if [ $i -eq $selected_index ]; then
             echo -e " ${GREEN}►${NC} ${options[$i]}"
@@ -2598,37 +2599,37 @@ select_menu_option() {
         fi
     done
 
-    # 循环处理键盘输入
+    # Loop to process keyboard input
     while true; do
-        # 读取单个按键
+        # Read single key press
         read -rsn3 key_input
 
-        # 检测按键
+        # Detect key press
         case "$key_input" in
-            # 上箭头键
+            # Up arrow key
             $'\033[A')
                 if [ $selected_index -gt 0 ]; then
                     ((selected_index--))
                 fi
                 ;;
-            # 下箭头键
+            # Down arrow key
             $'\033[B')
                 if [ $selected_index -lt $((${#options[@]}-1)) ]; then
                     ((selected_index++))
                 fi
                 ;;
-            # Enter键
+            # Enter key
             "")
-                echo # 换行
-                log_info "您选择了: ${options[$selected_index]}"
+                echo # New line
+                log_info "You selected: ${options[$selected_index]}"
                 return $selected_index
                 ;;
         esac
 
-        # 恢复光标位置
+        # Restore cursor position
         tput rc
 
-        # 重新显示菜单
+        # Redisplay menu
         for i in "${!options[@]}"; do
             if [ $i -eq $selected_index ]; then
                 echo -e " ${GREEN}►${NC} ${options[$i]}"
@@ -2639,7 +2640,7 @@ select_menu_option() {
     done
 }
 
-# 主函数
+# Main function
 main() {
 
     # Initialize log file
@@ -2675,14 +2676,14 @@ main() {
     "
     echo -e "${BLUE}================================${NC}"
     echo -e "${GREEN}🚀   Cursor Free Trial Reset Tool          ${NC}"
-    echo -e "${YELLOW}📱  Follow Official Account【煎饼果子卷AI】     ${NC}"
+    echo -e "${YELLOW}📱  Follow Official Account [XoneVN AI]     ${NC}"
     echo -e "${YELLOW}🤝  Share more Cursor tips and AI knowledge (Script is free, follow the account to join group for more tips and experts)  ${NC}"
     echo -e "${BLUE}================================${NC}"
     echo
-    echo -e "${YELLOW}⚡  [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, WeChat: JavaRookie666  ${NC}"
+    echo -e "${YELLOW}⚡  [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, Contact: +84587646666 (Zalo)  ${NC}"
     echo
     echo -e "${YELLOW}💡 [Important Note]${NC} This tool uses a phased execution strategy, capable of both thorough cleanup and machine code modification."
-    echo -e "${YELLOW}💡 [Important Note]${NC} This tool is free. If it helps you, please follow the official account【煎饼果子卷AI】"
+    echo -e "${YELLOW}💡 [Important Note]${NC} This tool is free. If it helps you, please follow the official account [XoneVN AI]"
     echo
     echo
 
@@ -2690,12 +2691,12 @@ main() {
     echo
     echo -e "${GREEN}🎯 [Selection Mode]${NC} Please select the operation you want to perform:"
     echo
-    echo -e "${BLUE}  1️⃣  Modify Machine Code Only${NC}"
+    echo -e "${BLUE}  1  Modify Machine Code Only${NC}"
     echo -e "${YELLOW}      • Only execute machine code modification${NC}"
     echo -e "${YELLOW}      • Skip folder deletion/environment reset steps${NC}"
     echo -e "${YELLOW}      • Preserve existing Cursor configuration and data${NC}"
     echo
-    echo -e "${BLUE}  2️⃣  Reset Environment + Modify Machine Code${NC}"
+    echo -e "${BLUE}  2  Reset Environment + Modify Machine Code${NC}"
     echo -e "${RED}      • Execute complete environment reset (delete Cursor folders)${NC}"
     echo -e "${RED}      • ⚠️  Configuration will be lost, please backup${NC}"
     echo -e "${YELLOW}      • Modify machine code${NC}"
@@ -2730,10 +2731,10 @@ main() {
     # 📋 Display execution flow based on selection
     if [ "$execute_mode" = "MODIFY_ONLY" ]; then
         echo -e "${GREEN}📋 [Execution Flow]${NC} Modify Machine Code Only mode will execute the following steps:"
-        echo -e "${BLUE}  1️⃣  Detect Cursor configuration file${NC}"
-        echo -e "${BLUE}  2️⃣  Backup existing configuration file${NC}"
-        echo -e "${BLUE}  3️⃣  Modify machine code configuration${NC}"
-        echo -e "${BLUE}  4️⃣  Display operation completion information${NC}"
+        echo -e "${BLUE}  1  Detect Cursor configuration file${NC}"
+        echo -e "${BLUE}  2  Backup existing configuration file${NC}"
+        echo -e "${BLUE}  3  Modify machine code configuration${NC}"
+        echo -e "${BLUE}  4  Display operation completion information${NC}"
         echo
         echo -e "${YELLOW}⚠️  [Notes]${NC}"
         echo -e "${YELLOW}  • Will not delete any folders or reset environment${NC}"
@@ -2742,18 +2743,18 @@ main() {
         echo -e "${YELLOW}  • Python3 environment required to process JSON configuration files${NC}"
     else
         echo -e "${GREEN}📋 [Execution Flow]${NC} Reset Environment + Modify Machine Code mode will execute the following steps:"
-        echo -e "${BLUE}  1️⃣  Detect and close Cursor processes${NC}"
-        echo -e "${BLUE}  2️⃣  Save Cursor program path information${NC}"
-        echo -e "${BLUE}  3️⃣  Delete specified Cursor trial-related folders${NC}"
+        echo -e "${BLUE}  1  Detect and close Cursor processes${NC}"
+        echo -e "${BLUE}  2  Save Cursor program path information${NC}"
+        echo -e "${BLUE}  3  Delete specified Cursor trial-related folders${NC}"
         echo -e "${BLUE}      📁 ~/Library/Application Support/Cursor${NC}"
         echo -e "${BLUE}      📁 ~/.cursor${NC}"
-        echo -e "${BLUE}  3.5️⃣ Pre-create necessary directory structure to avoid permission issues${NC}"
-        echo -e "${BLUE}  4️⃣  Restart Cursor to generate new configuration file${NC}"
-        echo -e "${BLUE}  5️⃣  Wait for configuration file generation (up to 45 seconds)${NC}"
-        echo -e "${BLUE}  6️⃣  Close Cursor process${NC}"
-        echo -e "${BLUE}  7️⃣  Modify newly generated machine code configuration file${NC}"
-        echo -e "${BLUE}  8️⃣  Smart device identification bypass (MAC address modification or JS kernel modification)${NC}"
-        echo -e "${BLUE}  9️⃣  Disable auto-updates${NC}"
+        echo -e "${BLUE}  3.5 Pre-create necessary directory structure to avoid permission issues${NC}"
+        echo -e "${BLUE}  4  Restart Cursor to generate new configuration file${NC}"
+        echo -e "${BLUE}  5  Wait for configuration file generation (up to 45 seconds)${NC}"
+        echo -e "${BLUE}  6  Close Cursor process${NC}"
+        echo -e "${BLUE}  7  Modify newly generated machine code configuration file${NC}"
+        echo -e "${BLUE}  8  Smart device identification bypass (MAC address modification or JS kernel modification)${NC}"
+        echo -e "${BLUE}  9  Disable auto-updates${NC}"
         echo -e "${BLUE}  🔟  Display operation completion statistics${NC}"
         echo
         echo -e "${YELLOW}⚠️  [Notes]${NC}"
@@ -2776,164 +2777,164 @@ main() {
     echo -e "${GREEN}✅ [Confirmation]${NC} User confirmed to continue execution"
     echo
 
-    # 🚀 根据用户选择执行相应功能
+    # 🚀 Execute corresponding function based on user selection
     if [ "$execute_mode" = "MODIFY_ONLY" ]; then
-        log_info "🚀 [开始] 开始执行仅修改机器码功能..."
+        log_info "🚀 [Start] Starting to execute machine code modification only function..."
 
-        # 先进行环境检查
+        # First perform environment check
         if ! test_cursor_environment "MODIFY_ONLY"; then
             echo
-            log_error "❌ [环境检查失败] 无法继续执行"
+            log_error "❌ [Environment Check Failed] Unable to continue execution"
             echo
-            log_info "💡 [建议] 请选择以下操作："
-            echo -e "${BLUE}  1️⃣  选择'重置环境+修改机器码'选项（推荐）${NC}"
-            echo -e "${BLUE}  2️⃣  手动启动Cursor一次，然后重新运行脚本${NC}"
-            echo -e "${BLUE}  3️⃣  检查Cursor是否正确安装${NC}"
-            echo -e "${BLUE}  4️⃣  安装Python3: brew install python3${NC}"
+            log_info "💡 [Suggestion] Please choose one of the following operations:"
+            echo -e "${BLUE}  1  Select 'Reset Environment + Modify Machine Code' option (Recommended)${NC}"
+            echo -e "${BLUE}  2  Manually start Cursor once, then re-run the script${NC}"
+            echo -e "${BLUE}  3  Check if Cursor is correctly installed${NC}"
+            echo -e "${BLUE}  4  Install Python3: brew install python3${NC}"
             echo
-            read -p "按回车键退出..."
+            read -p "Press Enter to exit..."
             exit 1
         fi
 
-        # 执行机器码修改
+        # Execute machine code modification
         if modify_machine_code_config "MODIFY_ONLY"; then
             echo
-            log_info "🎉 [完成] 机器码修改完成！"
-            log_info "💡 [提示] 现在可以启动Cursor使用新的机器码配置"
+            log_info "🎉 [Complete] Machine code modification completed!"
+            log_info "💡 [Tip] You can now start Cursor to use the new machine code configuration"
         else
             echo
-            log_error "❌ [失败] 机器码修改失败！"
-            log_info "💡 [建议] 请尝试'重置环境+修改机器码'选项"
+            log_error "❌ [Failed] Machine code modification failed!"
+            log_info "💡 [Suggestion] Please try 'Reset Environment + Modify Machine Code' option"
         fi
 
 
 
-        # 🚫 禁用自动更新（仅修改模式也需要）
+        # 🚫 Disable auto-update (modify-only mode also needs this)
         echo
-        log_info "🚫 [禁用更新] 正在禁用Cursor自动更新..."
+        log_info "🚫 [Disable Update] Disabling Cursor auto-update..."
         disable_auto_update
 
-        # 🛡️ 关键修复：仅修改模式的权限修复
+        # 🛡️ Critical fix: Permission fix for modify-only mode
         echo
-        log_info "🛡️ [权限修复] 执行仅修改模式的权限修复..."
-        log_info "💡 [说明] 确保Cursor应用能够正常启动，无权限错误"
+        log_info "🛡️ [Permission Fix] Executing permission fix for modify-only mode..."
+        log_info "💡 [Description] Ensure Cursor application can start normally without permission errors"
         ensure_cursor_directory_permissions
 
-        # 🔧 关键修复：修复应用签名问题（防止"应用已损坏"错误）
+        # 🔧 Critical fix: Fix application signature issue (prevent "application is damaged" error)
         echo
-        log_info "🔧 [应用修复] 正在修复Cursor应用签名问题..."
-        log_info "💡 [说明] 防止出现'应用已损坏，无法打开'的错误"
+        log_info "🔧 [Application Fix] Fixing Cursor application signature issue..."
+        log_info "💡 [Description] Prevent 'application is damaged and cannot be opened' error"
 
         if fix_damaged_app; then
-            log_info "✅ [应用修复] Cursor应用签名修复成功"
+            log_info "✅ [Application Fix] Cursor application signature fix successful"
         else
-            log_warn "⚠️  [应用修复] 应用签名修复失败，可能需要手动处理"
-            log_info "💡 [建议] 如果Cursor无法启动，请在系统偏好设置中允许打开"
+            log_warn "⚠️  [Application Fix] Application signature fix failed, may require manual handling"
+            log_info "💡 [Suggestion] If Cursor cannot start, please allow opening in System Preferences"
         fi
     else
-        # 完整的重置环境+修改机器码流程
-        log_info "🚀 [开始] 开始执行重置环境+修改机器码功能..."
+        # Complete reset environment + modify machine code flow
+        log_info "🚀 [Start] Starting to execute reset environment + modify machine code function..."
 
-        # 🚀 执行主要功能
+        # 🚀 Execute main function
         check_permissions
         check_and_kill_cursor
 
-        # 🚨 重要警告提示
+        # 🚨 Important warning prompt
         echo
-        echo -e "${RED}🚨 [重要警告]${NC} ============================================"
+        echo -e "${RED}🚨 [Important Warning]${NC} ============================================"
         log_warn "⚠️  [Risk Control Reminder] Cursor's risk control mechanism is very strict!"
         log_warn "⚠️  [Must Delete] Must completely delete specified folders, no residual settings allowed"
         log_warn "⚠️  [Prevent Trial Loss] Only thorough cleanup can effectively prevent losing Pro trial status"
-        echo -e "${RED}🚨 [重要警告]${NC} ============================================"
+        echo -e "${RED}🚨 [Important Warning]${NC} ============================================"
         echo
 
-        # 🎯 执行 Cursor 防掉试用Pro删除文件夹功能
+        # 🎯 Execute Cursor trial Pro protection folder deletion function
         log_info "🚀 [Start] Starting core function..."
         remove_cursor_trial_folders
 
-        # 🔄 重启Cursor让其重新生成配置文件
+        # 🔄 Restart Cursor to regenerate configuration files
         restart_cursor_and_wait
 
-        # 🛠️ 修改机器码配置
+        # 🛠️ Modify machine code configuration
         modify_machine_code_config
 
-        # 🔧 智能设备识别绕过（MAC地址修改或JS内核修改）
+        # 🔧 Smart device identification bypass (MAC address modification or JS kernel modification)
         echo
         log_info "🔧 [Device Identification] Starting smart device identification bypass..."
         log_info "💡 [Description] Will automatically select the best solution based on system environment (MAC address modification or JS kernel modification)"
 
 
-        # 🔧 关键修复：修复应用签名问题（防止"应用已损坏"错误）
+        # 🔧 Critical fix: Fix application signature issue (prevent "application is damaged" error)
         echo
-        log_info "🔧 [应用修复] 正在修复Cursor应用签名问题..."
-        log_info "💡 [说明] 防止出现'应用已损坏，无法打开'的错误"
+        log_info "🔧 [Application Fix] Fixing Cursor application signature issue..."
+        log_info "💡 [Description] Prevent 'application is damaged and cannot be opened' error"
 
         if fix_damaged_app; then
-            log_info "✅ [应用修复] Cursor应用签名修复成功"
+            log_info "✅ [Application Fix] Cursor application signature fix successful"
         else
-            log_warn "⚠️  [应用修复] 应用签名修复失败，可能需要手动处理"
-            log_info "💡 [建议] 如果Cursor无法启动，请在系统偏好设置中允许打开"
+            log_warn "⚠️  [Application Fix] Application signature fix failed, may require manual handling"
+            log_info "💡 [Suggestion] If Cursor cannot start, please allow opening in System Preferences"
         fi
     fi
 
-    # 🚫 禁用自动更新
+    # 🚫 Disable auto-update
     echo
-    log_info "🚫 [禁用更新] 正在禁用Cursor自动更新..."
+    log_info "🚫 [Disable Update] Disabling Cursor auto-update..."
     disable_auto_update
 
-    # 🎉 显示操作完成信息
+    # 🎉 Display operation completion information
     echo
-    log_info "🎉 [完成] Cursor 防掉试用Pro删除操作已完成！"
-    echo
-
-    # 📱 显示公众号信息
-    echo -e "${GREEN}================================${NC}"
-    echo -e "${YELLOW}📱  关注公众号【煎饼果子卷AI】一起交流更多Cursor技巧和AI知识(脚本免费、关注公众号加群有更多技巧和大佬)  ${NC}"
-    echo -e "${YELLOW}⚡   [小小广告] Cursor官网正规成品号：Pro¥65 | Pro+¥265 | Ultra¥888 独享账号/7天质保，WeChat：JavaRookie666  ${NC}"
-    echo -e "${GREEN}================================${NC}"
-    echo
-    log_info "🚀 [提示] 现在可以重新启动 Cursor 尝试使用了！"
+    log_info "🎉 [Complete] Cursor trial Pro protection deletion operation completed!"
     echo
 
-    # 🎉 显示修改结果总结
+    # 📱 Display official account information
+    echo -e "${GREEN}================================${NC}"
+    echo -e "${YELLOW}📱  Follow Official Account [XoneVN AI] to share more Cursor tips and AI knowledge (Script is free, follow the account to join group for more tips and experts)  ${NC}"
+    echo -e "${YELLOW}⚡   [Small Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, Contact: +84587646666 (Zalo)  ${NC}"
+    echo -e "${GREEN}================================${NC}"
+    echo
+    log_info "🚀 [Tip] You can now restart Cursor and try using it!"
+    echo
+
+    # 🎉 Display modification result summary
     echo
     echo -e "${GREEN}================================${NC}"
-    echo -e "${BLUE}   🎯 修改结果总结     ${NC}"
+    echo -e "${BLUE}   🎯 Modification Result Summary     ${NC}"
     echo -e "${GREEN}================================${NC}"
-    echo -e "${GREEN}✅ JSON配置文件修改: 完成${NC}"
-    echo -e "${GREEN}✅ 自动更新禁用: 完成${NC}"
+    echo -e "${GREEN}✅ JSON configuration file modification: Complete${NC}"
+    echo -e "${GREEN}✅ Auto-update disabled: Complete${NC}"
     echo -e "${GREEN}================================${NC}"
     echo
 
-    # 🛡️ 脚本完成前最终权限修复
+    # 🛡️ Final permission fix before script completion
     echo
-    log_info "🛡️ [最终权限修复] 执行脚本完成前的最终权限修复..."
+    log_info "🛡️ [Final Permission Fix] Executing final permission fix before script completion..."
     ensure_cursor_directory_permissions
 
-    # 🎉 脚本执行完成
-    log_info "🎉 [完成] 所有操作已完成！"
+    # 🎉 Script execution completed
+    log_info "🎉 [Complete] All operations completed!"
     echo
-    log_info "💡 [重要提示] 完整的Cursor破解流程已执行："
-    echo -e "${BLUE}  ✅ 机器码配置文件修改${NC}"
-    echo -e "${BLUE}  ✅ 自动更新功能禁用${NC}"
-    echo -e "${BLUE}  ✅ 权限修复和验证${NC}"
+    log_info "💡 [Important Note] Complete Cursor modification process has been executed:"
+    echo -e "${BLUE}  ✅ Machine code configuration file modification${NC}"
+    echo -e "${BLUE}  ✅ Auto-update feature disabled${NC}"
+    echo -e "${BLUE}  ✅ Permission fix and verification${NC}"
     echo
-    log_warn "⚠️  [注意] 重启 Cursor 后生效"
+    log_warn "⚠️  [Note] Take effect after restarting Cursor"
     echo
-    log_info "🚀 [下一步] 现在可以启动 Cursor 尝试使用了！"
+    log_info "🚀 [Next Step] You can now start Cursor and try using it!"
     echo
 
-    # 记录脚本完成信息
-    log_info "📝 [日志] 脚本执行完成"
-    echo "========== Cursor 防掉试用Pro删除工具日志结束 $(date) ==========" >> "$LOG_FILE"
+    # Record script completion information
+    log_info "📝 [Log] Script execution completed"
+    echo "========== Cursor Trial Pro Protection Tool Log End $(date) ==========" >> "$LOG_FILE"
 
-    # 显示日志文件位置
+    # Display log file location
     echo
-    log_info "📄 [日志] 详细日志已保存到: $LOG_FILE"
-    echo "如遇问题请将此日志文件提供给开发者以协助排查"
+    log_info "📄 [Log] Detailed log saved to: $LOG_FILE"
+    echo "If you encounter issues, please provide this log file to the developer for troubleshooting"
     echo
 }
 
-# 执行主函数
+# Execute main function
 main
 
