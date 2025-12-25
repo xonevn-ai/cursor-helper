@@ -95,8 +95,17 @@ jobs:
           fi
           echo "Version validation passed"
 
+      - name: Get tag from ref (if tag push)
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: get_tag_from_ref
+        run: |
+          tag_name=${GITHUB_REF#refs/tags/}
+          echo "tag=$tag_name" >> "$GITHUB_OUTPUT"
+          echo "Using existing tag: $tag_name"
+
       - name: Create new tag
         if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+        id: create_tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -105,12 +114,30 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git tag -a $new_tag -m "Release $new_tag"
           git push origin $new_tag
+          echo "tag=$new_tag" >> "$GITHUB_OUTPUT"
+          echo "Created and pushed tag: $new_tag"
+
+      - name: Set release tag
+        id: set_release_tag
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            tag_name="${GITHUB_REF#refs/tags/}"
+            echo "tag=$tag_name" >> "$GITHUB_OUTPUT"
+            echo "Using tag from ref: $tag_name"
+          elif [ -n "${{ steps.create_tag.outputs.tag }}" ]; then
+            echo "tag=${{ steps.create_tag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+            echo "Using created tag: ${{ steps.create_tag.outputs.tag }}"
+          else
+            echo "::error::No tag available for release"
+            exit 1
+          fi
 
       # Prepare release artifacts (shell scripts)
       - name: Prepare Release Artifacts
         run: |
           mkdir -p dist
-          echo "Preparing release artifacts for version: ${{ steps.get_latest_tag.outputs.version }}"
+          release_tag="${{ steps.set_release_tag.outputs.tag }}"
+          echo "Preparing release artifacts for version: $release_tag"
           
           # Copy scripts to dist folder
           mkdir -p dist/scripts
@@ -124,16 +151,12 @@ jobs:
           
           ls -lah dist/
 
-      - name: Set Release Version
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
       # Create GitHub Release
       - name: Create Release
-        if: ${{ startsWith(github.ref, 'refs/tags/v') || (success() && steps.get_latest_tag.outputs.version != '') }}
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.set_release_tag.outputs.tag }}
+          name: Release ${{ steps.set_release_tag.outputs.tag }}
           files: |
             dist/**
           draft: false
@@ -144,7 +167,6 @@ jobs:
 
       # Verify Release Artifacts
       - name: Verify Release
-        if: ${{ startsWith(github.ref, 'refs/tags/v') || (success() && steps.get_latest_tag.outputs.version != '') }}
         run: |
           echo "Verifying release artifacts..."
           if [ ! -d "dist" ]; then
@@ -164,7 +186,7 @@ jobs:
         if: always()
         run: |
           echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- Release Version: ${{ steps.get_latest_tag.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Release Version: ${{ steps.set_release_tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           echo "- Build Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
           echo "- Project Type: Shell Scripts (PowerShell/Bash)" >> $GITHUB_STEP_SUMMARY
 
