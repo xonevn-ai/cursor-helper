@@ -30,7 +30,7 @@
 
 ⚠️ **Notice**: Genuine top-up, exclusive account | 7-day warranty, daily refund | Max 3 devices | Stock accounts valid 27-30 days
 
-📱 **Contact**: Zalo: [0587646666](https://fb.me/dotiendiep) | WeChat: `JavaRookie666`
+📱 **Contact**: Zalo: [0587646666](https://fb.me/dotiendiep) | Facebook: `Đỗ Tiến Điệp`
 
 ---
 
@@ -38,7 +38,7 @@
 
 > 🔥 **Ad Space Available** - Contact for partnership opportunities
 >
-> 📧 Contact: Zalo [0587646666](https://fb.me/dotiendiep) | WeChat: `JavaRookie666`
+> 📧 Contact: Zalo [0587646666](https://fb.me/dotiendiep) | Facebook: `Đỗ Tiến Điệp`
 
 ---
 
