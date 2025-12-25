@@ -972,7 +972,7 @@ Module.prototype.require=function(id){
     return hooked;
 };
 
-console.log("[Cursor ID Modifier] Enhanced Hook Activated - Official Account【煎饼果子卷AI】");
+console.log("[Cursor ID Modifier] Enhanced Hook Activated - Official Account [XoneVN AI]");
 })();
 // ========== Cursor Hook Injection End ==========
 
@@ -1340,11 +1340,11 @@ main() {
     "
     echo -e "${BLUE}=====================================================${NC}"
     echo -e "${GREEN}         Cursor Linux Startup & Modification Tool (Free)            ${NC}"
-    echo -e "${YELLOW}        Follow Official Account【煎饼果子卷AI】     ${NC}"
+    echo -e "${YELLOW}        Follow Official Account [XoneVN AI]     ${NC}"
     echo -e "${YELLOW}  Share more Cursor tips and AI knowledge (Script is free, follow the account to join group for more tips and experts)  ${NC}"
     echo -e "${BLUE}=====================================================${NC}"
     echo
-    echo -e "${YELLOW}⚡  [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, WeChat: JavaRookie666  ${NC}"
+    echo -e "${YELLOW}⚡  [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, Contact: +84587646666 (Zalo)  ${NC}"
     echo
     echo -e "${YELLOW}[Tip]${NC} This tool is designed to modify Cursor to resolve potential startup issues or device restrictions."
     echo -e "${YELLOW}[Tip]${NC} It will prioritize modifying JS files and optionally reset device IDs and disable auto-updates."
@@ -1424,8 +1424,8 @@ main() {
     # Display final prompt information
     echo
     echo -e "${GREEN}=====================================================${NC}"
-    echo -e "${YELLOW}  Please follow Official Account【煎饼果子卷AI】for more tips and communication ${NC}"
-    echo -e "${YELLOW}⚡   [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, WeChat: JavaRookie666  ${NC}"
+    echo -e "${YELLOW}  Please follow Official Account [XoneVN AI] for more tips and communication ${NC}"
+    echo -e "${YELLOW}⚡   [Advertisement] Official Cursor Accounts: Pro¥65 | Pro+¥265 | Ultra¥888 Exclusive account/7-day warranty, Contact: +84587646666 (Zalo)  ${NC}"
     echo -e "${GREEN}=====================================================${NC}"
     echo
     
