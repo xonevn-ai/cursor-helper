@@ -1314,22 +1314,22 @@ cursor_initialize_cleanup() {
     log_info "Cursor initialization cleanup completed."
 }
 
-# 主函数
+# Main function
 main() {
-    # 初始化日志文件
+    # Initialize log file
     initialize_log
-    log_info "脚本启动..."
-    log_info "运行用户: $CURRENT_USER (脚本以 EUID=$EUID 运行)"
+    log_info "Script starting..."
+    log_info "Running user: $CURRENT_USER (script running with EUID=$EUID)"
 
-    # 检查权限 (必须在脚本早期)
-    check_permissions # 需要 root 权限进行安装和修改系统文件
+    # Check permissions (must be early in script)
+    check_permissions # Requires root permissions for installation and system file modification
 
-    # 记录系统信息
-    log_info "系统信息: $(uname -a)"
-    log_cmd_output "lsb_release -a 2>/dev/null || cat /etc/*release 2>/dev/null || cat /etc/issue" "系统版本信息"
+    # Record system information
+    log_info "System information: $(uname -a)"
+    log_cmd_output "lsb_release -a 2>/dev/null || cat /etc/*release 2>/dev/null || cat /etc/issue" "System version information"
     
     clear
-    # 显示 Logo
+    # Display Logo
     echo -e "
     ██████╗██╗   ██╗██████╗ ███████╗ ██████╗ ██████╗ 
    ██╔════╝██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔══██╗
@@ -1440,7 +1440,7 @@ main() {
     echo
 }
 
-# 执行主函数
+# Execute main function
 main
 
-exit 0 # 确保最后返回成功状态码
+exit 0 # Ensure final return of success status code
